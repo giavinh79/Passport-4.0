@@ -1,0 +1,11 @@
+.makeStyles-paper-1 {
+    padding: 0rem 2rem 2rem 2rem !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    /* background-color: #ccc !important; */
+}
+
+/* .MuiFormControl-root:nth-child(4){
+    margin-left: 1rem !important;
+    background-color: yellow !important;
+} */
