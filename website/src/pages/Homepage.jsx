@@ -8,7 +8,7 @@ export default class Homepage extends React.Component {
             <React.Fragment>
                 <Header />
                 <SignIn />
-                <div style={styles.info}>version: 3.18.0.NB327 (8957) NCR Corporation</div>
+                <div style={styles.info}>version: 4.0.0.NB100 &copy; NCR Corporation</div>
             </React.Fragment>
         );
     }
@@ -16,7 +16,8 @@ export default class Homepage extends React.Component {
 
 const styles = {
     info : {
-        position: 'absolute',
+        // position: 'absolute',
+        textAlign: 'right',
         right: '0',
         bottom: '0',
         color: '#666',

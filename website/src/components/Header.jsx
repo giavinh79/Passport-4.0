@@ -25,10 +25,15 @@ export default class Header extends React.Component {
         // );
         console.log(this.props)
         return (
-            <div style={styles.container}>
-                <img src="images/logo.png" alt="logo"/>
-                <div style={{display : this.state.loggedIn === true ? 'block' : 'none'}}>
+            <div style={Object.assign(styles.container, this.state.loggedIn ? styles.conditionalLeft: styles.conditionalCenter)}>
+                <div style={{display: 'flex', flex: '5'}}>
+                    <img src="images/logo.png" alt="logo"/>
+                </div>
+                <div style={{display : this.state.loggedIn === true ? 'flex' : 'none', flex: '11'}}>
                     <SearchBar />   
+                </div>
+                <div style={{display : this.state.loggedIn === true ? 'flex' : 'none', flex: '2'}}>
+                    logo 
                 </div>
             </div>
         )
@@ -39,10 +44,17 @@ export default class Header extends React.Component {
 const styles = {
     container : {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        minHeight: '6rem',
         height: '11%',
         backgroundColor: '#51B948'
+    },
+    conditionalCenter: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    conditionalLeft: {
+        alignItems: 'left',
+        justifyContent: 'left'
     },
     header : {
         color: 'white',
