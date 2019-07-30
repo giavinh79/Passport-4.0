@@ -104,7 +104,6 @@ export default function NavBar(props) {
           </List>
         </Collapse>
       </div>
-      <ListItem button>
       <ListItem button onClick={() => handleChangePage("Deposits")} >
         <ListItemIcon>
           <ScannerIcon />
