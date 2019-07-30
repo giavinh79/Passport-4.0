@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import CreateDeposit from './CreateDeposit';
-var socket = require('socket.io-client')('http://localhost:5000');
+var socket = require('socket.io-client')('https://passport-redesign-248321.appspot.com');
 var QRCODE = require('qrcode.react');
 
 const useStyles = makeStyles(theme => ({
