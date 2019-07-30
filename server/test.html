@@ -11,6 +11,10 @@
     <script>
         var socket = io('http://localhost:5000');
         socket.emit('connection')
+        socket.on('image', function(data) {
+            console.log(data)
+            console.log(socket.id)
+        });
     </script>
 </body>
 </html>
