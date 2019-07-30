@@ -20,15 +20,10 @@
     "react-native-easy-grid": "^0.2.1",
     "react-native-elements": "^1.1.0",
     "react-native-fs": "^2.13.3",
-<<<<<<< HEAD
-    "react-native-web": "^0.11.4",
-    "tabler-react": "^2.0.0-alpha.1"
-=======
     "react-native-navigation": "^2.26.2",
     "react-native-textinput-effects": "^0.5.1",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.4"
->>>>>>> master
   },
   "devDependencies": {
     "babel-preset-expo": "^6.0.0"
