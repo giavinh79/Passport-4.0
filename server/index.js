@@ -6,7 +6,7 @@ const io = require('socket.io')(http);
 let globalSockets = {};
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
     res.header('Access-Control-Allow-Credentials', 'true');
     next()
 });

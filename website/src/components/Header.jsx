@@ -60,14 +60,6 @@ const styles = {
         height: '11%',
         backgroundColor: '#51B948'
     },
-    conditionalCenter: {
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    conditionalLeft: {
-        alignItems: 'left',
-        justifyContent: 'left'
-    },
     header : {
         color: 'white',
         fontFamily: 'sans-serif'
