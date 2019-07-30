@@ -11,6 +11,7 @@ export default class Header extends React.Component {
 
     state = {
         loggedIn : this.props.loggedIn,
+        temp: 'thing'
     }
 
     render() {
