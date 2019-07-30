@@ -29,7 +29,8 @@ export class CameraComponent extends React.Component {
     let body = JSON.stringify(obj)
     console.log(body.length)
 
-    let response = await fetch('http://153.71.62.154:5000/scan', {
+    let url = "https://passport-redesign-248321.appspot.com/scan"
+    let response = await fetch(url, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
