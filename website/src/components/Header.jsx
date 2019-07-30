@@ -39,13 +39,13 @@ export default class Header extends React.Component {
         return (
             <div style={styles.container}>
                 <div style={{display: 'flex', flex: '5'}}>
-                    <img src="images/logo.png" alt="logo"/>
+                    <img src="../images/logo.png" alt="logo"/>
                 </div>
                 <div onMouseEnter={this.expandSearchBar} onMouseLeave={this.collapseSearchBar} style={{alignItems: 'left', display : this.state.loggedIn === true ? 'flex' : 'none', flex: '11'}}>
                     <SearchBar expanded={this.state.searchBarExpanded}/>   
                 </div>
                 <div style={{display : this.state.loggedIn === true ? 'flex' : 'none', flex: '2'}}>
-                    <i class="far fa-user" style={styles.userIconStyle}></i>
+                    <i className="far fa-user" style={styles.userIconStyle}></i>
                 </div>
             </div>
         )

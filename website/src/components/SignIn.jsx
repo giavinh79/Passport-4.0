@@ -44,16 +44,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// const 
+
 export default function SignIn() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     age: '',
-    name: 'hai',
+    name: 'hai'
   });
 
   const handleClick = (e) => {
     e.preventDefault();
-    window.location.href = "/dashboard"
+    const username = document.querySelector('#username').value;
+    username === 'bank_admin_cm' ? window.location.href = "/dashboard-admin" : window.location.href = "/dashboard"
+    // window.location.href = "/dashboard"
+    // window.location.href = "/dashboard-admin"
   }
 
   function handleChange(event) {
@@ -69,7 +74,7 @@ export default function SignIn() {
       <div className={classes.paper} style={{border: '1px solid #ccc', padding: '0.5rem 2rem', borderRadius: '5px'}}>
         <div style={{display: 'flex', width: '100%', justifyContent: 'flex-end', color: '#3f51b5', paddingTop: '1rem', cursor: 'pointer'}}><i class="far fa-question-circle" style={{fontSize: '1.4rem'}}></i></div>
         <Avatar className={classes.avatar} style={{backgroundColor: '#51B948', marginBottom: '1.3rem', width: '60px', height:'60px'}}>
-          <i class="fas fa-user" style={{color: 'white', fontSize: '1.8rem'}}></i>
+          <i className="fas fa-user" style={{color: 'white', fontSize: '1.8rem'}}></i>
         </Avatar>
         <Typography component="h1" variant="h5">
           Passport Web Edition
@@ -114,7 +119,7 @@ export default function SignIn() {
             </Select>
             <FormHelperText>Select your user type</FormHelperText>
           </FormControl>
-          
+          <div style={verticalLine}></div>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-helper">Language</InputLabel>
             <Select
@@ -159,4 +164,11 @@ export default function SignIn() {
       </div>
     </Container>
   );
+}
+
+const verticalLine = {
+  borderLeft: '2px solid #ccc',
+  height: '3rem',
+  position: 'relative',
+  margin: '1rem 1rem 0 1rem'
 }
