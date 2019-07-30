@@ -8,7 +8,7 @@ let globalSockets = {};
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
     res.header('Access-Control-Allow-Credentials', 'true');
-     next(); 
+    next();
 });
 
 app.use(bodyParser.urlencoded({
@@ -23,6 +23,7 @@ io.on('connection', function (socket) {
 });
 
 app.post('/scan', (req, res) => {
+    console.log(req.body)
     const image = req.body.image;
     const id = req.body.socketId;
     socket = globalSockets[id];

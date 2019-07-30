@@ -11,6 +11,7 @@
     "expo": "^33.0.0",
     "expo-camera": "^5.0.1",
     "expo-cli": "^3.0.4",
+    "expo-file-system": "^5.0.1",
     "expo-permissions": "^5.0.1",
     "native-base": "^2.12.2",
     "react": "16.8.3",
@@ -19,6 +20,9 @@
     "react-native-easy-grid": "^0.2.1",
     "react-native-elements": "^1.1.0",
     "react-native-fs": "^2.13.3",
+    "react-native-navigation": "^2.26.2",
+    "react-native-textinput-effects": "^0.5.1",
+    "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.4"
   },
   "devDependencies": {
