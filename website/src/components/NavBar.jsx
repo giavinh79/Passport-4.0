@@ -32,6 +32,10 @@ export default function NavBar(props) {
     setOpen(!open);
   }
 
+  function handleChangePage(page) {
+    window.location.href = "/" + page
+  }
+
   return (
     <List
       component="nav"
@@ -101,6 +105,7 @@ export default function NavBar(props) {
         </Collapse>
       </div>
       <ListItem button>
+      <ListItem button onClick={() => handleChangePage("Deposits")} >
         <ListItemIcon>
           <ScannerIcon />
         </ListItemIcon>

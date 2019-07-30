@@ -11,7 +11,7 @@ export class AppHeader extends React.Component {
           backgroundColor: theme.secondary
         }}
         centerComponent={{
-          text: 'Ingredients Scanner',
+          text: 'Passport',
           style: {
             color: theme.primary,
             fontSize: 24
