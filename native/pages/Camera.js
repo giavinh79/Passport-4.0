@@ -4,7 +4,10 @@ import { CameraComponent } from '../components/camera/camera.page';
 export class Camera extends React.Component {
   render() {
     return (
-      <CameraComponent/>
+      <CameraComponent
+        goToLoginScreen={this.props.goToLoginScreen}
+        socketId={this.props.socketId}
+      />
     )
   }
 }

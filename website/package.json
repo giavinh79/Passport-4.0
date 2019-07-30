@@ -8,13 +8,15 @@
     "bootstrap": "^4.3.1",
     "react": "^16.8.6",
     "react-charts": "^2.0.0-alpha.12",
+    "qrcode.react": "^0.9.3",
+    "react-beautiful-dnd": "^11.0.5",
     "react-dom": "^16.8.6",
     "react-minimal-pie-chart": "^5.0.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-swipeable-views": "^0.13.3",
     "reactstrap": "^8.0.1",
-    "tabler-react": "^2.0.0-alpha.1"
+    "socket.io-client": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

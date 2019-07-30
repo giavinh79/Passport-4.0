@@ -1,10 +1,9 @@
 import React from 'react'
 import Header from '../components/Header';
-// import DepositList from '../components/DepositList'
+import DepositList from '../components/DepositList'
 import NavBar from '../components/NavBar.jsx'
-import DashboardBody from '../components/DashboardBody';
 
-export default class Dashboard extends React.Component {
+export default class Deposits extends React.Component {
     state = {
         user: true
     }
@@ -14,8 +13,8 @@ export default class Dashboard extends React.Component {
             <>
                 <Header loggedIn={true}/>
                 <div style={styles.body}>
-                    <NavBar admin={this.props.admin} />
-                    <DashboardBody />
+                    <NavBar />
+                    <DepositList />
                 </div>
             </>
         ) : (
