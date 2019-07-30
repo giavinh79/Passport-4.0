@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   export default function SearchBar() {
     const classes = useStyles();
     return (
-        <div className={classes.search} style={{marginLeft: 'auto'}}>
+        <div className={classes.search} style={{margin: 'auto', flex: '3', display: 'flex', height: '70%'}}>
             <div className={classes.searchIcon}>
             <SearchIcon />
             </div>
