@@ -4,7 +4,12 @@ const routes = require('./routes/api');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended:true }));
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true,
+    type: 'application/json'
+}));
+
 app.use(bodyParser.json());
 
 app.use('/api', routes); 
