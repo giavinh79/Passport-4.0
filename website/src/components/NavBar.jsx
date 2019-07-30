@@ -49,7 +49,7 @@ export default function NavBar(props) {
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItem>
-      <div style={{display : props.admin ? 'block' : 'none'}}>
+      <div style={{display : props.admin ? 'block' : 'block'}}>
         <ListItem button onClick={handleClick}>
           <ListItemIcon>
             <VerifiedIcon />
@@ -110,25 +110,12 @@ export default function NavBar(props) {
         </ListItemIcon>
         <ListItemText primary="Deposits" />
       </ListItem>
-      <div style={{display : props.admin ? 'none' : 'block'}}>
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>
-            <BuildIcon />
-          </ListItemIcon>
-          <ListItemText primary="Maintenance" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon>
-              <ListItemText primary="Starred" />
-            </ListItem>
-          </List>
-        </Collapse>
-      </div>
+      <ListItem button>
+        <ListItemIcon>
+          <BuildIcon />
+        </ListItemIcon>
+        <ListItemText primary="Maintenance" />
+      </ListItem>
     </List>
   );
 }
