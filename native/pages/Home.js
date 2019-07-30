@@ -60,13 +60,13 @@ export class Home extends React.Component {
             }}
             title="Login"
             iconRight
-            icon={
-              <FontAwesome
-                name="arrow-right"
-                size={15}
-                color={theme.primary}
-              />
-            }
+            // icon={
+            //   <FontAwesome
+            //     name="arrow-right"
+            //     size={15}
+            //     color={theme.primary}
+            //   />
+            // }
             onPress={this.props.goToCamera}
           />
         </View>

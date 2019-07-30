@@ -8,14 +8,16 @@ let globalSockets = {};
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
     res.header('Access-Control-Allow-Credentials', 'true');
-    next();
+    next()
 });
 
 app.use(bodyParser.urlencoded({
-    limit: '50mb',
+    limit: '100mb',
     extended: true
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    limit: '100mb'
+}));
 
 io.on('connection', function (socket) {
     console.log(socket.id)
@@ -27,8 +29,11 @@ app.post('/scan', (req, res) => {
     const image = req.body.image;
     const id = req.body.socketId;
     socket = globalSockets[id];
-    socket.emit('image', image);
-    res.send('Success');
+    if (socket) {
+        socket.emit('image', image);
+        res.send('Success');
+    }
+
 })
 
 const port = process.env.PORT || 5000;

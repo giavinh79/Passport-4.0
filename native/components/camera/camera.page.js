@@ -20,20 +20,25 @@ export class CameraComponent extends React.Component {
     flashMode: Camera.Constants.FlashMode.off
   };
 
-  sendPictureToServer = async (picture, socketId) => {
-    console.log(socketId)
-    console.log(picture)
-    let body = {
-      image: picture,
+  sendPictureToServer = async (image, socketId) => {
+    let obj = {
+      image,
       socketId
     }
 
-    let response = await fetch('http://153.71.62.154:5000/scan', {
-      method: 'post',
-      body: JSON.stringify(body)
-    })
+    let body = JSON.stringify(obj)
+    console.log(body.length)
 
-    console.log(response)
+    let response = await fetch('http://153.71.62.154:5000/scan', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body
+    });
+
+    console.log(response);
   }
 
   setFlashMode = flashMode => this.setState({ flashMode });
@@ -47,16 +52,18 @@ export class CameraComponent extends React.Component {
   handleShortCapture = async () => {
     const imagePath = await this.camera.takePictureAsync();
     console.log(imagePath.uri);
-    let imageData = await FileSystem.readAsStringAsync(imagePath.uri, {
+    FileSystem.readAsStringAsync(imagePath.uri, {
       encoding: FileSystem.EncodingType.Base64
-    })
-    console.log(imageData)
+    }).then((image => {
+      console.log(image, this.props.socketId.data)
+      this.sendPictureToServer(image, this.props.socketId.data)
+      this.setState({
+        capturing: false
+        // captures: [photoData, ...this.state.captures]
+      })
+    }))
 
-    this.sendPictureToServer(imageData, this.props.socketId)
-    this.setState({
-      capturing: false
-      // captures: [photoData, ...this.state.captures]
-    });
+
   };
 
   prepareRatio = async () => {
