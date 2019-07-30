@@ -86,7 +86,7 @@ class DepositList extends React.Component {
                 </Button>
                 </div>
                 {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
-                {this.state.imageReady ? <img src={this.state.imageData} />: null}
+                {this.state.imageReady ?  <img src={`data:image/jpeg;base64,${this.state.imageData}`} />: null}
             </div>
         );
     }
