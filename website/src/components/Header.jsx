@@ -44,6 +44,7 @@ export default class Header extends React.Component {
 const styles = {
     container : {
         display: 'flex',
+        minHeight: '6rem',
         height: '11%',
         backgroundColor: '#51B948'
     },

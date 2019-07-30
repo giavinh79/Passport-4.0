@@ -51,6 +51,11 @@ export default function SignIn() {
     name: 'hai',
   });
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    window.location.href = "/dashboard"
+  }
+
   function handleChange(event) {
     setValues(oldValues => ({
       ...oldValues,
@@ -59,9 +64,9 @@ export default function SignIn() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{paddingBottom: '2rem'}}>
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className={classes.paper} style={{border: '1px solid #ccc', padding: '0.5rem 2rem', borderRadius: '5px'}}>
         <div style={{display: 'flex', width: '100%', justifyContent: 'flex-end', color: '#3f51b5', paddingTop: '1rem', cursor: 'pointer'}}><i class="far fa-question-circle" style={{fontSize: '1.4rem'}}></i></div>
         <Avatar className={classes.avatar} style={{backgroundColor: '#51B948', marginBottom: '1.3rem', width: '60px', height:'60px'}}>
           <i class="fas fa-user" style={{color: 'white', fontSize: '1.8rem'}}></i>
@@ -92,7 +97,7 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.5rem'}}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-helper">User Type</InputLabel>
             <Select
@@ -120,11 +125,11 @@ export default function SignIn() {
               {/* <MenuItem value="">
                 Customer
               </MenuItem> */}
-              <MenuItem value={10}>Customer</MenuItem>
-              <MenuItem value={20}>Bank</MenuItem>
-              <MenuItem value={30}>Host</MenuItem>
+              <MenuItem value={10}>English</MenuItem>
+              <MenuItem value={20}>French</MenuItem>
+              <MenuItem value={30}>Spanish</MenuItem>
             </Select>
-            <FormHelperText>Select your user type</FormHelperText>
+            <FormHelperText>Select your location</FormHelperText>
           </FormControl>
         </div>
           <Button
@@ -133,6 +138,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleClick}
           >
             Start
           </Button>
