@@ -41,6 +41,7 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        minHeight: '6rem',
         height: '11%',
         backgroundColor: '#51B948'
     },
