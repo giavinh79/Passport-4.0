@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/Header';
 // import DepositList from '../components/DepositList'
 import NavBar from '../components/NavBar.jsx'
+import DashboardBody from '../components/DashboardBody';
 
 export default class Dashboard extends React.Component {
     state = {
@@ -14,7 +15,7 @@ export default class Dashboard extends React.Component {
                 <Header loggedIn={true}/>
                 <div style={styles.body}>
                     <NavBar />
-                    {/* <DepositList /> */}
+                    <DashboardBody />
                 </div>
             </>
         ) : (
