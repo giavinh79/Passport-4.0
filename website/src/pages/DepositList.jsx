@@ -11,9 +11,6 @@ import CreateDeposit from './CreateDeposit';
 import { Grid } from '@material-ui/core';
 import { Modal } from 'reactstrap';
 
-var socket = require('socket.io-client')('http://localhost:5000');
-var QRCODE = require('qrcode.react');
-
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
@@ -48,7 +45,7 @@ class DepositList extends React.Component {
             modal: false,
             qrcode: false,
             backdrop: true
-        };
+        }
 
         this.toggle = this.toggle.bind(this);
     }
@@ -58,15 +55,6 @@ class DepositList extends React.Component {
             modal: !prevState.modal
         }));
     }
-
-        // this.setState({ qrcode: true, socketId: socket.id })
-        // socket.on('image', (data) => {
-        //     console.log(data);
-        //     this.setState({
-        //         imageReady: true,
-        //         imageData: data
-        //     })
-        // });
 
     render() {
         const { classes } = this.props
