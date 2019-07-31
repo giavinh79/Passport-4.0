@@ -41,12 +41,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// const 
-
 export default function SignIn() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    age: '',
+    user: '',
+    language: '',
     name: 'hai'
   });
 
@@ -54,8 +53,6 @@ export default function SignIn() {
     e.preventDefault();
     const username = document.querySelector('#username').value;
     username === 'bank_admin_cm' ? window.location.href = "/dashboard-admin" : window.location.href = "/dashboard"
-    // window.location.href = "/dashboard"
-    // window.location.href = "/dashboard-admin"
   }
 
   function handleChange(event) {
@@ -101,15 +98,12 @@ export default function SignIn() {
           />
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.5rem'}}>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="age-helper">User Type</InputLabel>
+            <InputLabel htmlFor="user-helper">User Type</InputLabel>
             <Select
-              value={values.age}
+              value={values.user}
               onChange={handleChange}
-              input={<Input name="age" id="age-helper" />}
+              input={<Input name="user" id="user-helper" />}
             >
-              {/* <MenuItem value="">
-                Customer
-              </MenuItem> */}
               <MenuItem value={10}>Customer</MenuItem>
               <MenuItem value={20}>Bank</MenuItem>
               <MenuItem value={30}>Host</MenuItem>
@@ -118,15 +112,12 @@ export default function SignIn() {
           </FormControl>
           <div style={verticalLine}></div>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="age-helper">Language</InputLabel>
+            <InputLabel htmlFor="language-helper">Language</InputLabel>
             <Select
-              value={values.age}
+              value={values.language}
               onChange={handleChange}
-              input={<Input name="age" id="age-helper" />}
+              input={<Input name="language" id="language-helper" />}
             >
-              {/* <MenuItem value="">
-                Customer
-              </MenuItem> */}
               <MenuItem value={10}>English</MenuItem>
               <MenuItem value={20}>French</MenuItem>
               <MenuItem value={30}>Spanish</MenuItem>
@@ -145,7 +136,7 @@ export default function SignIn() {
             Start
           </Button>
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" checked />}
+            control={<Checkbox value="remember" color="primary" defaultChecked/>}
             label="Show Tips" style={{display: 'flex', justifyContent: 'flex-end', margin: '-0.5rem 0 0 0'}}
           />
           {/* <Grid container>

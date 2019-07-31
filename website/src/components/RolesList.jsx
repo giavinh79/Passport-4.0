@@ -30,18 +30,22 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData('Frozen yoghurt', 159, 6.0, 24),
+  createData('Ice cream sandwich', 237, 9.0, 37),
+  createData('Eclair', 262, 16.0, 24),
+  createData('Cupcake', 305, 3.7, 67),
+  createData('Gingerbread', 356, 16.0, 49),
 ];
 
 export default function RolesList() {
   const classes = useStyles();
+  const handleClick = (e) => {
+    e.preventDefault();
+    window.location.href = "/roles/create-new-role"
+  }
 
   return (
-    <div style={{padding: '0 2rem', width: '100%'}}>
+    <div style={{padding: '1rem 2rem', width: '100%'}}>
         <h1 style={{color: '#666'}}>Role Search</h1>
         <Paper className={classes.root}>
             <Table className={classes.table}>
@@ -62,14 +66,13 @@ export default function RolesList() {
                         <TableCell align="right">{row.calories}</TableCell>
                         <TableCell align="right">{row.fat}</TableCell>
                         <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
             </Table>
         </Paper>
         <div style={{textAlign: 'right'}}>
-            <Button variant="outlined" color="primary" className={classes.button} style={{borderColor: 'green', color: 'green', margin: '1rem 0rem 1rem 0'}}>
+            <Button variant="outlined" color="primary" className={classes.button} style={{borderColor: 'green', color: 'green', margin: '1rem 0rem 1rem 0'}} onClick={handleClick}>
                 Create new role
             </Button>
         </div>
