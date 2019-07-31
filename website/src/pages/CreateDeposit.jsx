@@ -100,7 +100,7 @@ export default class CreateDeposit extends React.Component {
                             <Input type="input" name="declaredAmount" id="declaredAmount" />
                         </FormGroup>
                         <div style={{ justifyContent: 'space-between', width: '500px' }}>
-                            <Button onClick={() => this.props.changePage(PAGES.DASHBOARD)} style={{ marginRight: '1rem' }}>Start Capture</Button>
+                            <Button onClick={() => this.props.changePage(PAGES.DEPOSITLISTITEM)} style={{ marginRight: '1rem' }}>Start Capture</Button>
                             <Button>Cancel</Button>
                         </div>
                     </Form>

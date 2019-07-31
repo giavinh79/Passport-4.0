@@ -6,12 +6,14 @@ import { Grid } from '@material-ui/core';
 import DashboardBody from '../components/DashboardBody'
 import RolesList from '../components/RolesList';
 import RoleCreation from '../components/RoleCreation';
+import DepositListItem from './DepositListItem';
 
 export const PAGES = {
     DEPOSITS: 0,
     DASHBOARD: 1,
     ROLEPAGE: 2,
-    ROLEPAGECREATE: 3
+    ROLEPAGECREATE: 3,
+    DEPOSITLISTITEM: 4
 }
 export default class Dashboard extends React.Component {
     state = {
@@ -36,6 +38,7 @@ export default class Dashboard extends React.Component {
                             {this.state.currentPage === PAGES.DEPOSITS && <DepositList changePage={this.handleChangePage} />}
                             {this.state.currentPage === PAGES.ROLEPAGE && <RolesList/>}
                             {this.state.currentPage === PAGES.ROLEPAGECREATE && <RoleCreation/>}
+                            {this.state.currentPage === PAGES.DEPOSITLISTITEM && <DepositListItem/>}
                         </Grid>
                     </Grid>
                         {/* 
