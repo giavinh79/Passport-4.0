@@ -44,7 +44,7 @@ export default function NavBar(props) {
       className={classes.root}
       style={styles.wrapper}
     >
-      <ListItem button>
+      <ListItem button onClick={() => handleChangePage("dashboard")}>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>

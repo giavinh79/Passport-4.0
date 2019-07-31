@@ -6,6 +6,8 @@ import Dashboard from './pages/Dashboard.jsx'
 import Rolepage from './pages/Rolepage.jsx'
 import RolepageCreate from './pages/RolepageCreate.jsx'
 import Deposits from './pages/Deposits.jsx'
+import CreateDeposit from './pages/CreateDeposit';
+import DepositListItem from './pages/DepositListItem';
 import Notification from './components/Notification.jsx'
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
       <Route exact path="/roles" render={() => {return <Rolepage />}} />
       <Route path="/roles/create-new-role" render={() => {return <RolepageCreate />}} />
       <Route path="/deposits" render={() => {return <Deposits/>}} />
+      <Route path="/create-deposit" render={() => {return <CreateDeposit/>}} />
+      <Route path="/deposit-list-item" render={() => {return <DepositListItem/>}} />
       <Route path="/test" render={() => {return <Notification />}} />
     </BrowserRouter>
   );

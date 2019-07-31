@@ -44,6 +44,7 @@ export class Home extends React.Component {
             iconColor={theme.primary}
             labelStyle={{ color: theme.primary }}
             inputStyle={{ color: theme.primary }}
+            secureTextEntry={true}
             useNativeDriver
           />
         </View>
@@ -60,13 +61,15 @@ export class Home extends React.Component {
             }}
             title="Login"
             iconRight
-            // icon={
-            //   <FontAwesome
-            //     name="arrow-right"
-            //     size={15}
-            //     color={theme.primary}
-            //   />
-            // }
+            icon={
+              <View style={{marginLeft: 5}}>
+                <FontAwesome
+                  name="arrow-right"
+                  size={15}
+                  color={theme.primary}
+                />
+              </View>
+            }
             onPress={this.props.goToCamera}
           />
         </View>

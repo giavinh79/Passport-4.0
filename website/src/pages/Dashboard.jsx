@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../components/Header';
-import DepositList from '../components/DepositList'
+import DepositList from './DepositList'
 import NavBar from '../components/NavBar.jsx'
 import { Grid } from '@material-ui/core';
 import DashboardBody from '../components/DashboardBody'

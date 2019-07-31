@@ -15,6 +15,10 @@ export default class App extends React.Component {
     this.setState({ isCameraOpen: true })
   }
 
+  restart = ()=>{
+    this.setState({qrCode:undefined})
+  }
+
   goToLoginScreen = (qrCode) => {
     this.setState({ isCameraOpen: false, qrCode })
   }
@@ -26,6 +30,7 @@ export default class App extends React.Component {
           <Camera
             goToLoginScreen={this.goToLoginScreen}
             socketId={this.state.qrCode}
+            restart={this.restart}
           />
           :
           <Home
@@ -35,5 +40,4 @@ export default class App extends React.Component {
       </>
     );
   }
-
 }

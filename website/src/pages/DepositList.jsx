@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         overflowX: 'scroll',
     },
     table: {
-        minWidth: 650,
+        minWidth: 650
     },
     button: {
         margin: theme.spacing(1),
@@ -40,10 +40,24 @@ const headers = [
 
 class DepositList extends React.Component {
 
-    state = { qrcode: false }
+    constructor(props) {
+        super(props);
+        this.state = {
+            modal: false,
+            qrcode: false
+        };
 
-    handleModal = () => {
-        console.log(socket.id)
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
+
+    getModal = () => {
+
         // this.setState({ qrcode: true, socketId: socket.id })
         // socket.on('image', (data) => {
         //     console.log(data);
@@ -59,6 +73,7 @@ class DepositList extends React.Component {
 
         return (
             <>
+                {this.modal ? this.getModal() : null}
                 <Grid container style={{ padding: '3vh 3vh 0 3vh' }}>
                     <Grid item xs={12}>
                         <Grid container>
@@ -69,7 +84,7 @@ class DepositList extends React.Component {
                                 <Grid container justify="flex-end" alignItems="center">
                                     <Grid item>
                                         <Button
-                                            onClick={this.handleModal}
+                                            onClick={this.toggle}
                                             variant="outlined"
                                             color="primary"
                                             className={classes.button}

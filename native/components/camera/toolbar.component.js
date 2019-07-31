@@ -37,7 +37,7 @@ export default ({
                 name={
                   flashMode == CameraFlashModes.on ? "md-flash" : "md-flash-off"
                 }
-                color={theme.primary}
+                color={theme.secondary}
                 size={30}
               />
             </TouchableOpacity>
@@ -65,7 +65,7 @@ export default ({
                 )
               }
             >
-              <Ionicons name="md-reverse-camera" color={theme.primary} size={30} />
+              <Ionicons name="md-reverse-camera" color={theme.secondary} size={30} />
             </TouchableOpacity>
           </Col>
         </Row>

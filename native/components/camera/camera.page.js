@@ -1,11 +1,14 @@
 import React from "react";
-import { View, Text, Platform } from "react-native";
+import { View, Text, Platform, Animated } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import * as FileSystem from 'expo-file-system';
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { theme } from '../../Theme';
+import { Col, Row } from "react-native-easy-grid";
 import styles from "./styles";
 import Toolbar from "./toolbar.component";
+import { Grid } from "native-base";
 
 const DESIRED_RATIO = "2:1";
 
@@ -17,7 +20,8 @@ export class CameraComponent extends React.Component {
     capturing: null,
     hasCameraPermission: null,
     cameraType: Camera.Constants.Type.back,
-    flashMode: Camera.Constants.FlashMode.off
+    flashMode: Camera.Constants.FlashMode.off,
+    fadeAnim: new Animated.Value(1),
   };
 
   sendPictureToServer = async (image, socketId) => {
@@ -86,6 +90,15 @@ export class CameraComponent extends React.Component {
       camera.status === "granted" && audio.status === "granted";
 
     this.setState({ hasCameraPermission });
+
+    Animated.timing(                  // Animate over time
+      this.state.fadeAnim,            // The animated value to drive
+      {
+        toValue: 0.3,
+        delay: 3000,                  // Animate to opacity: 1 (opaque)
+        duration: 500,              // Make it take a while
+      }
+    ).start(); 
   }
 
   onBarCodeScanned = (obj) => {
@@ -94,13 +107,18 @@ export class CameraComponent extends React.Component {
     }
   }
 
+  handleBackArrow = () => {
+    this.props.restart();
+  }
+
   render() {
     const {
       hasCameraPermission,
       flashMode,
       cameraType,
       capturing,
-      captures
+      captures,
+      fadeAnim
     } = this.state;
 
     if (hasCameraPermission === null) {
@@ -122,6 +140,31 @@ export class CameraComponent extends React.Component {
             onBarCodeScanned={this.onBarCodeScanned}
           />
         </View>
+        <Grid>
+          <Row>
+            <Col> 
+              {this.props.socketId !== undefined ?
+              <View>
+                <View style={{paddingLeft: 20, paddingTop: 50}}>
+                  <FontAwesome
+                    onPress={this.handleBackArrow}
+                    name="arrow-left"
+                    size={25}
+                    color={theme.secondary}
+                  />
+                </View>
+                <Animated.View style={{opacity: fadeAnim}}>
+                  <Text style={{color:theme.secondary, textAlign: "center", padding:10, fontSize: 20, fontWeight:"bold"}}>Take a picture of the check you'd like to scan.</Text>
+                </Animated.View>
+              </View>
+              : 
+              <Animated.View style={{opacity: fadeAnim}}>
+                <Text style={{color:theme.secondary, textAlign: "center", marginTop: 80, fontSize: 20, fontWeight:"bold"}}>Scan the deposit QR code.</Text>
+              </Animated.View>
+              }
+            </Col>
+          </Row>
+        </Grid>
         <Toolbar
           showToolbar={this.props.socketId !== undefined}
           capturing={capturing}
