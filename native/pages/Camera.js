@@ -7,6 +7,7 @@ export class Camera extends React.Component {
       <CameraComponent
         goToLoginScreen={this.props.goToLoginScreen}
         socketId={this.props.socketId}
+        restart={this.props.restart}
       />
     )
   }
