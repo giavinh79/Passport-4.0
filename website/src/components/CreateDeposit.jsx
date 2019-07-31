@@ -1,42 +1,131 @@
-import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
-import { DH_CHECK_P_NOT_SAFE_PRIME } from 'constants';
+import React from 'react'
+import Header from '../components/Header';
+import DepositList from '../components/DepositList'
+import NavBar from '../components/NavBar.jsx'
+import { Button, Form, FormGroup, Label, Input, FormText, Col, Row } from 'reactstrap';
+import { AddCircle } from '@material-ui/icons'
+import { Paper } from '@material-ui/core';
 
-class CreateDeposit extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false,
-      backdrop: true
-    };
+export default class CreateDeposit extends React.Component {
+    state = {
+        user: true,
+    }
 
-    this.toggle = this.toggle.bind(this);
-  }
+    getForm = () => {
+        return (
+            <Paper style={{ padding: '1rem', maxWidth: '100%' }}>
+                <h1 style={{ color: '#666' }}>New Deposit</h1>
 
-  toggle() {
-      console.log('hi')
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
-  }
+                <Form style={{ margin: "1rem", height: '90%' }}>
+                    <FormGroup>
+                        <Label for="location">Location:</Label>
+                        <Input type="select" name="location" id="location">
+                            <option>190 King St, Kitchener, Ontario</option>
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="accountNumber">Account Number:</Label>
+                        <Input type="select" name="accountNumber" id="accountNumber">
+                            <option>1948****** - Weber Market bank account King St</option>
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="routingTransitNumber">Routing Transit Number:</Label>
+                        <Input type="input" name="routingTransitNumber" id="routingTransitNumber" />
+                    </FormGroup>
+                    <FormGroup tag="fieldset">
+                        <Row >
+                            <Col sm={4}>
+                                <Label for="depositType">Deposit Type:</Label>
+                            </Col>
+                            <Col sm={2}>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio1" />{' '}
+                                        Simple
+                                    </Label>
+                                </FormGroup>
+                            </Col>
+                            <Col sm={4}>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio1" />{' '}
+                                        Remittance
+                                    </Label>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                    </FormGroup>
+                    <FormGroup tag="fieldset">
+                        <Row>
+                            <Col sm={4}>
+                                <Label for="ClearingChannel">Clearing Channel:</Label>
+                            </Col>
+                            <Col sm={2}>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio1" />{' '}
+                                        Image
+                                    </Label>
+                                </FormGroup>
+                            </Col>
+                            <Col sm={4}>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio1" />{' '}
+                                        ACH-ARC
+                                    </Label>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="companyName">Company Name:</Label>
+                        <Input type="select" name="companyName" id="companyName">
+                            <option>Weber Market Waterloo</option>
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <AddCircle style={{ color: 'blue', marginBottom: '2px', marginRight: '5px' }} />
+                        <Label for="optionalField1">Add Optional Field</Label>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="numItems">Number of Items:</Label>
+                        <Input type="input" name="numItems" id="numItems" defaultValue={0} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="declaredAmount">Declared Amount ($)</Label>
+                        <Input type="input" name="declaredAmount" id="declaredAmount" />
+                    </FormGroup>
+                    <div style={{ justifyContent: 'space-between', width: '500px' }}>
+                        <Button onClick={() => window.location.href = "/deposit-list-Item"} style={{ marginRight: '1rem' }}>Start Capture</Button>
+                        <Button onClick={() => window.location.href = "/create-deposit"}>Cancel</Button>
+                    </div>
+                </Form>
+            </Paper>
+        )
+    }
 
-  render() {
-      console.log('hi')
-    return (
-      <div>
-        <Modal toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-          <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    );
-  }
+    render() {
+        return this.state.user === true ? (
+            <>
+                <Header loggedIn={true} />
+                <div style={styles.body}>
+                    <NavBar />
+                    {this.getForm()}
+                </div>
+            </>
+        ) : (
+                <div></div>
+            );
+    }
 }
 
-export default CreateDeposit;
+const styles = {
+    body: {
+        display: 'flex',
+        height: '89%',
+        width: '100%',
+        flex: 'auto'
+    }
+}

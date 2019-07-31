@@ -43,7 +43,7 @@ export default function NavBar(props) {
       className={classes.root}
       style={styles.wrapper}
     >
-      <ListItem button>
+      <ListItem button onClick={() => handleChangePage("dashboard")}>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
@@ -104,7 +104,7 @@ export default function NavBar(props) {
           </List>
         </Collapse>
       </div>
-      <ListItem button onClick={() => handleChangePage("Deposits")} >
+      <ListItem button onClick={() => handleChangePage("deposits")} >
         <ListItemIcon>
           <ScannerIcon />
         </ListItemIcon>
