@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import CreateDeposit from './CreateDeposit';
 import { Grid } from '@material-ui/core';
+import { Modal } from 'reactstrap';
+
 var socket = require('socket.io-client')('http://localhost:5000');
 var QRCODE = require('qrcode.react');
 
@@ -44,7 +46,8 @@ class DepositList extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            qrcode: false
+            qrcode: false,
+            backdrop: true
         };
 
         this.toggle = this.toggle.bind(this);
@@ -56,8 +59,6 @@ class DepositList extends React.Component {
         }));
     }
 
-    getModal = () => {
-
         // this.setState({ qrcode: true, socketId: socket.id })
         // socket.on('image', (data) => {
         //     console.log(data);
@@ -66,14 +67,16 @@ class DepositList extends React.Component {
         //         imageData: data
         //     })
         // });
-    }
 
     render() {
         const { classes } = this.props
 
         return (
             <>
-                {this.modal ? this.getModal() : null}
+                <Modal isOpen={this.state.modal} toggle={this.toggle} backdrop={this.state.backdrop}>
+                    <CreateDeposit changePage={this.props.changePage}/>
+                </Modal>
+
                 <Grid container style={{ padding: '3vh 3vh 0 3vh' }}>
                     <Grid item xs={12}>
                         <Grid container>
