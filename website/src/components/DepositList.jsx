@@ -68,7 +68,7 @@ class DepositList extends React.Component {
                             <Grid item xs={6}>
                                 <Grid container justify="flex-end" alignItems="center">
                                     <Grid item>
-                                        <Button
+                                    <Button
                                             onClick={this.handleModal}
                                             variant="outlined"
                                             color="primary"
