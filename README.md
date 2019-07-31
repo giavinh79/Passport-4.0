@@ -1,3 +1,5 @@
+<img src="https://github.com/GV79/Passport-4.0/blob/master/Images/logo.png" alt="logo" width="150"/>
+
 # Passport-4.0 -- 2019 NCR Global Hackathon
 ## The Side Projectors
 - Giavinh Lam
