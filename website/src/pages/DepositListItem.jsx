@@ -29,13 +29,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const rowTemplate = ['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'];
+const rowTemplate = ['', 'Empty', 'Virtual Credit Item', '15.00', '', '1948285392', '486685766'];
 // const rows = [
 //     {row:['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'], data:{}}
 // ];
 
 const headers = [
-    "Tasks", "Create Date", "Deposit Number", "Type", "Location", "Capture", "Account", "Assigned Used ID", "Amount ($)", "Number of Items", "State", "Deposit ID"
+    "Errors", "Tasks", "Item Type", "Post Amount ($)", "Capture Sequence", "Account", "Routing Transit"
 ]
 
 class DepositListItem extends React.Component {
