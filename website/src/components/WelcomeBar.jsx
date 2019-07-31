@@ -3,7 +3,7 @@ import React from 'react'
 export default function WelcomeBar(props) {
     return(
         <div>
-            <h1 style={styles.title}>Welcome {props.name}</h1>
+            <h1 style={styles.title}>Welcome, {props.name}</h1>
         </div>
     );
 }

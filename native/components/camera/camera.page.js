@@ -41,14 +41,14 @@ export class CameraComponent extends React.Component {
       },
       method: 'post',
       body
-    });
+    })
 
     console.log(response);
   }
 
-  setFlashMode = flashMode => this.setState({ flashMode });
-  setCameraType = cameraType => this.setState({ cameraType });
-  handleCaptureIn = () => this.setState({ capturing: true });
+  setFlashMode = flashMode => this.setState({ flashMode })
+  setCameraType = cameraType => this.setState({ cameraType })
+  handleCaptureIn = () => this.setState({ capturing: true })
 
   handleCaptureOut = () => {
     if (this.state.capturing) this.camera.stopRecording();

@@ -5,8 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -17,7 +15,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Select from '@material-ui/core/Select';
 import '../styling/SignIn.css'
-import { Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -47,13 +44,15 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    age: '',
-    name: 'hai',
+    user: '',
+    language: '',
+    name: 'hai'
   });
 
   const handleClick = (e) => {
     e.preventDefault();
-    window.location.href = "/dashboard"
+    const username = document.querySelector('#username').value;
+    username === 'bank_admin_cm' ? window.location.href = "/dashboard-admin" : window.location.href = "/dashboard"
   }
 
   function handleChange(event) {
@@ -69,7 +68,7 @@ export default function SignIn() {
       <div className={classes.paper} style={{border: '1px solid #ccc', padding: '0.5rem 2rem', borderRadius: '5px'}}>
         <div style={{display: 'flex', width: '100%', justifyContent: 'flex-end', color: '#3f51b5', paddingTop: '1rem', cursor: 'pointer'}}><i class="far fa-question-circle" style={{fontSize: '1.4rem'}}></i></div>
         <Avatar className={classes.avatar} style={{backgroundColor: '#51B948', marginBottom: '1.3rem', width: '60px', height:'60px'}}>
-          <i class="fas fa-user" style={{color: 'white', fontSize: '1.8rem'}}></i>
+          <i className="fas fa-user" style={{color: 'white', fontSize: '1.8rem'}}></i>
         </Avatar>
         <Typography component="h1" variant="h5">
           Passport Web Edition
@@ -99,32 +98,26 @@ export default function SignIn() {
           />
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.5rem'}}>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="age-helper">User Type</InputLabel>
+            <InputLabel htmlFor="user-helper">User Type</InputLabel>
             <Select
-              value={values.age}
+              value={values.user}
               onChange={handleChange}
-              input={<Input name="age" id="age-helper" />}
+              input={<Input name="user" id="user-helper" />}
             >
-              {/* <MenuItem value="">
-                Customer
-              </MenuItem> */}
               <MenuItem value={10}>Customer</MenuItem>
               <MenuItem value={20}>Bank</MenuItem>
               <MenuItem value={30}>Host</MenuItem>
             </Select>
             <FormHelperText>Select your user type</FormHelperText>
           </FormControl>
-          
+          <div style={verticalLine}></div>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="age-helper">Language</InputLabel>
+            <InputLabel htmlFor="language-helper">Language</InputLabel>
             <Select
-              value={values.age}
+              value={values.language}
               onChange={handleChange}
-              input={<Input name="age" id="age-helper" />}
+              input={<Input name="language" id="language-helper" />}
             >
-              {/* <MenuItem value="">
-                Customer
-              </MenuItem> */}
               <MenuItem value={10}>English</MenuItem>
               <MenuItem value={20}>French</MenuItem>
               <MenuItem value={30}>Spanish</MenuItem>
@@ -143,7 +136,7 @@ export default function SignIn() {
             Start
           </Button>
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" checked />}
+            control={<Checkbox value="remember" color="primary" defaultChecked/>}
             label="Show Tips" style={{display: 'flex', justifyContent: 'flex-end', margin: '-0.5rem 0 0 0'}}
           />
           {/* <Grid container>
@@ -159,4 +152,11 @@ export default function SignIn() {
       </div>
     </Container>
   );
+}
+
+const verticalLine = {
+  borderLeft: '2px solid #ccc',
+  height: '3rem',
+  position: 'relative',
+  margin: '1rem 1rem 0 1rem'
 }

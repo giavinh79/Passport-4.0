@@ -8,14 +8,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import CreateDeposit from './CreateDeposit';
-var socket = require('socket.io-client')('https://passport-redesign-248321.appspot.com');
+import { Grid } from '@material-ui/core';
+var socket = require('socket.io-client')('http://localhost:5000');
 var QRCODE = require('qrcode.react');
 
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
         marginTop: theme.spacing(3),
-        overflowX: 'auto',
+        overflowX: 'scroll',
     },
     table: {
         minWidth: 650,
@@ -39,55 +40,77 @@ const headers = [
 
 class DepositList extends React.Component {
 
-    state={qrcode: false}
+    state = { qrcode: false }
 
     handleModal = () => {
         console.log(socket.id)
-        this.setState({qrcode: true, socketId: socket.id})
-        socket.on('image', (data) =>{
-            console.log(data);
-            this.setState({
-                imageReady:true,
-                imageData: data
-            })
-        });
+        // this.setState({ qrcode: true, socketId: socket.id })
+        // socket.on('image', (data) => {
+        //     console.log(data);
+        //     this.setState({
+        //         imageReady: true,
+        //         imageData: data
+        //     })
+        // });
     }
 
     render() {
-        const {classes} = this.props
+        const { classes } = this.props
 
         return (
-            <div style={{ padding: '0 2rem', width: '100%' }}>
-                <h1 style={{ color: '#666' }}>Deposit List</h1>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                {headers.map(header => (
-                                    <TableCell key={header} align="center">{header}</TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map(row => (
-                                <TableRow key={row[0]}>
-                                    {row.map(cell => (
-                                        <TableCell key={cell} align="center">{cell}</TableCell>
+            <>
+                <Grid container style={{ padding: '3vh 3vh 0 3vh' }}>
+                    <Grid item xs={12}>
+                        <Grid container>
+                            <Grid item xs={6}>
+                                <h1 style={{ marginBottom: '3vh' }}>Deposit List</h1>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Grid container justify="flex-end" alignItems="center">
+                                    <Grid item>
+                                        <Button
+                                            onClick={this.handleModal}
+                                            variant="outlined"
+                                            color="primary"
+                                            className={classes.button}
+                                            style={{ borderColor: 'green', color: 'green', margin: '1rem 0rem 1rem 0' }}
+                                        >
+                                            Create new deposit
+                                    </Button>
+                                    </Grid>
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Paper>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        {headers.map(header => (
+                                            <TableCell key={header} align="center">{header}</TableCell>
+                                        ))}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {rows.map(row => (
+                                        <TableRow key={row[0]}>
+                                            {row.map(cell => (
+                                                <TableCell key={cell} align="center">{cell}</TableCell>
+                                            ))}
+                                        </TableRow>
                                     ))}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-    
-                </Paper>
-                <div style={{ textAlign: 'right' }}>
-                    <Button onClick={this.handleModal} variant="outlined" color="primary" className={classes.button} style={{ borderColor: 'green', color: 'green', margin: '1rem 0rem 1rem 0' }}>
-                        Create new deposit
-                </Button>
-                </div>
-                {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
-                {this.state.imageReady ?  <img src={`data:image/jpeg;base64,${this.state.imageData}`} />: null}
-            </div>
+                                </TableBody>
+                            </Table>
+                        </Paper>
+                    </Grid>
+                    <Grid item>
+                        {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
+                        {this.state.imageReady ? <img src={this.state.imageData} /> : null}
+                    </Grid>
+                </Grid>
+            </>
         );
     }
 }
