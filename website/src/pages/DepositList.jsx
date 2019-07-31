@@ -74,7 +74,7 @@ class DepositList extends React.Component {
         return (
             <>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} backdrop={this.state.backdrop}>
-                    <CreateDeposit changePage={this.props.changePage}/>
+                    <CreateDeposit changePage={this.props.changePage} toggle={this.toggle}/>
                 </Modal>
 
                 <Grid container style={{ padding: '3vh 3vh 0 3vh' }}>
@@ -122,10 +122,6 @@ class DepositList extends React.Component {
                                 </TableBody>
                             </Table>
                         </Paper>
-                    </Grid>
-                    <Grid item>
-                        {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
-                        {this.state.imageReady ? <img src={this.state.imageData} /> : null}
                     </Grid>
                 </Grid>
             </>
