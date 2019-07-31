@@ -46,7 +46,7 @@ function MessageHub({ config = { tension: 125, friction: 20, precision: 0.1 }, t
 
 export default function App() {
   const ref = useRef(null)
-  setTimeout(function(){ ref.current('haha') }, 1000);
+  setTimeout(function(){ ref.current('New role saved') }, 1000);
   return (
     <MessageHub children={add => (ref.current = add)} />
   )

@@ -11,7 +11,7 @@ export default class RolepageCreate extends React.Component {
 
     render() {
         return this.state.user === true ? (
-            <RoleForm />
+            <RoleForm change={this.props.change}/>
         ) : (
             <div></div>
         );

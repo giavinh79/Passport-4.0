@@ -36,7 +36,7 @@ export default class Dashboard extends React.Component {
                             {this.state.currentPage === PAGES.DASHBOARD && <DashboardBody/>}
                             {this.state.currentPage === PAGES.DEPOSITS && <DepositList/>}
                             {this.state.currentPage === PAGES.ROLEPAGE && <RolesList change={this.handleChangePage}/>}
-                            {this.state.currentPage === PAGES.ROLEPAGECREATE && <RolepageCreate/>}
+                            {this.state.currentPage === PAGES.ROLEPAGECREATE && <RolepageCreate change={this.handleChangePage}/>}
                         </Grid>
                     </Grid>
                         {/* 

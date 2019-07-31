@@ -6,9 +6,14 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SearchIcon from '@material-ui/icons/Search';
 import { PAGES } from '../pages/Dashboard';
+import Notification from './Notification'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,9 +34,9 @@ const useStyles = makeStyles(theme => ({
 
 
 const rows = [
-    ['Frozen yoghurt', 'Bank Admin', 'Bank User', 'Host: Waterloo'],
-    ['Frozen yoghurt', 'Bank Reviewer', 'Bank User', 'Host: Waterloo'],
-    ['Frozen yoghurt', 'Customer Supervisor', 'Customer User', 'Host: Waterloo']
+    ['Bank Admin', 'Bank User', 'Host: Waterloo'],
+    ['Bank Reviewer', 'Bank User', 'Host: Waterloo'],
+    ['Customer Approver', 'Customer User', 'Host: Waterloo']
 ];
 
 const headers = [
@@ -39,10 +44,11 @@ const headers = [
 ]
 
 class RolesList extends React.Component {
-    state = { qrcode: false }
-
     render() {
         const { classes } = this.props
+        if (localStorage.getItem('role') !== null) {
+          rows.push([localStorage.getItem('role'), localStorage.getItem('selected'), 'Bank: Bank of Northfield'])
+        }        
 
         return (
             <>
@@ -83,6 +89,12 @@ class RolesList extends React.Component {
                                 <TableBody>
                                     {rows.map(row => (
                                         <TableRow key={row[0]}>
+                                          { row[0] === 'Customer Supervisor' ? <TableCell key={0} align="center"><IconButton><EditIcon style={{cursor: 'pointer'}}/></IconButton><IconButton><DeleteIcon style={{cursor: 'pointer'}}/></IconButton></TableCell> : 
+                                            <TableCell key={0} align="center"><SearchIcon style={{cursor: 'pointer'}}/></TableCell>
+                                          }
+                                          {/* <TableCell key={0} align="center"><SearchIcon style={{cursor: 'pointer'}}/></TableCell> */}
+                                          {/* : <TableCell key={0} align="center"><EditIcon style={{cursor: 'pointer'}}/><DeleteIcon style={{cursor: 'pointer'}}/></TableCell> */}
+                                          {/* } */}
                                             {row.map(cell => (
                                                 <TableCell key={cell} align="center">{cell}</TableCell>
                                             ))}
@@ -92,11 +104,8 @@ class RolesList extends React.Component {
                             </Table>
                         </Paper>
                     </Grid>
-                    {/* <Grid item>
-                        {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
-                        {this.state.imageReady ? <img src={this.state.imageData} /> : null}
-                    </Grid> */}
                 </Grid>
+                { localStorage.getItem('role') !== null ? <Notification /> : ''}
             </>
         );
     }
