@@ -33,7 +33,7 @@ export default class Dashboard extends React.Component {
                     <Grid container style={{height: '100%', overflowY: 'auto'}}>
                         <Grid item xs={12}>
                             {this.state.currentPage === PAGES.DASHBOARD && <DashboardBody/>}
-                            {this.state.currentPage === PAGES.DEPOSITS && <DepositList/>}
+                            {this.state.currentPage === PAGES.DEPOSITS && <DepositList changePage={this.handleChangePage} />}
                             {this.state.currentPage === PAGES.ROLEPAGE && <RolesList/>}
                             {this.state.currentPage === PAGES.ROLEPAGECREATE && <RoleCreation/>}
                         </Grid>
