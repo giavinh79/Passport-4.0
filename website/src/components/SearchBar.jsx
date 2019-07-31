@@ -2,6 +2,60 @@ import React from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import Autosuggest from 'react-autosuggest'
+import match from 'autosuggest-highlight/match'
+import parse from 'autosuggest-highlight/parse'
+import MenuItem from '@material-ui/core/MenuItem'
+import deburr from 'lodash/deburr'
+import { withStyles } from '@material-ui/core/styles'
+
+const suggestions = [];
+
+function renderSuggestion(suggestion, { query, isHighlighted }) {
+  const matches = match(suggestion.label, query);
+  const parts = parse(suggestion.label, matches);
+
+  return (
+    <MenuItem selected={isHighlighted} component="div">
+      <div>
+        {parts.map((part, index) => {
+          return part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 500, fontSize: 13 }}>
+              {part.text}
+            </span>
+          ) : (
+              <strong key={String(index)} style={{ fontWeight: 300, fontSize: 13 }}>
+                {part.text}
+              </strong>
+            );
+        })}
+      </div>
+    </MenuItem>
+  );
+}
+
+function getSuggestions(value) {
+  const inputValue = deburr(value.trim()).toLowerCase();
+  const inputLength = inputValue.length;
+  let count = 0;
+
+  return inputLength === 0
+    ? []
+    : suggestions.filter(suggestion => {
+      const keep =
+        count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+
+      if (keep) {
+        count += 1;
+      }
+
+      return keep;
+    });
+}
+
+function getSuggestionValue(suggestion) {
+  return suggestion.label;
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,23 +112,35 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SearchBar(props) {
-  const classes = useStyles();
-  return (
-    <div style={{ margin: 'auto', flex: '3', display: 'flex', height: '70%', transition: '0.5s', borderBottom: '1pt solid white' }}>
-      <div className={classes.search} style={{ width: props.expanded ? '100%' : '50px', overflow: 'hidden', display: 'flex' }}>
-        <div className={classes.searchIcon}>
-          <SearchIcon />
+const classes = useStyles;
+
+class SearchBar extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+
+  render() {
+    return (
+      <div style={{ margin: 'auto', flex: '3', display: 'flex', height: '70%', transition: '0.5s', borderBottom: '1pt solid white' }}>
+        <div className={classes.search} style={{ width: this.props.expanded ? '100%' : '50px', overflow: 'hidden', display: 'flex' }}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search' }}
+          />
         </div>
-        <InputBase
-          placeholder="Search…"
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          inputProps={{ 'aria-label': 'search' }}
-        />
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+export default withStyles(useStyles)(SearchBar);
