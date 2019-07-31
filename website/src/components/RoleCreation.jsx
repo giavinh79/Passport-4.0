@@ -1,6 +1,35 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+const availablePermissions = [
+    {
+        id: 'item 1',
+        content: 'Customer Operator',
+    },
+    {
+        id: 'item 2',
+        content: 'item 2',
+    },
+    {
+        id: 'item 3',
+        content: 'item 3',
+    }
+];
+
+const selectedPermissions = [
+    // {
+    //     id: 'item 4',
+    //     content: 'item 4',
+    // },
+    // {
+    //     id: 'item 5',
+    //     content: 'item 5',
+    // },
+    // {
+    //     id: 'item 6',
+    //     content: 'item 6',
+    // }
+];
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -45,22 +74,26 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
     // change background colour if dragging
     background: isDragging ? 'lightgreen' : 'white',
+    // border: '1px solid #ccc',
     borderRadius: '5px',
     // styles we need to apply on draggables
     ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    background: isDraggingOver ? 'lightblue' : 'rgb(160, 174, 185)',
     padding: grid,
-    margin: '0 3rem',
-    width: 250
+    margin: '0 1rem',
+    width: '50%',
+    borderRadius: '5px'
 });
 
 export default class RoleCreation extends Component {
     state = {
-        items: getItems(10),
-        selected: getItems(5, 10)
+        // items: getItems(10),
+        // selected: getItems(5, 10)
+        items: availablePermissions,
+        selected: selectedPermissions
     };
 
     /**
@@ -114,12 +147,13 @@ export default class RoleCreation extends Component {
 
     render() {
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
+            <DragDropContext onDragEnd={this.onDragEnd} style={{height:'50%'}}>
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
+                            <h5 style={{margin:'1rem'}}>Available Permissions</h5>
                             {this.state.items.map((item, index) => (
                                 <Draggable
                                     key={item.id}
@@ -135,6 +169,7 @@ export default class RoleCreation extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {item.content}
+                                            {/* <i className="fas fa-plus-circle" style={{color: 'green'}}></i> */}
                                         </div>
                                     )}
                                 </Draggable>
@@ -148,6 +183,7 @@ export default class RoleCreation extends Component {
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
+                            <h5 style={{margin:'1rem'}}>Selected Permissions</h5>
                             {this.state.selected.map((item, index) => (
                                 <Draggable
                                     key={item.id}

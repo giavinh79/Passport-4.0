@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../components/Header';
-import DepositList from '../components/DepositList'
+import DepositList from './DepositList'
 import NavBar from '../components/NavBar.jsx'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row } from 'reactstrap';
 import { AddCircle } from '@material-ui/icons'

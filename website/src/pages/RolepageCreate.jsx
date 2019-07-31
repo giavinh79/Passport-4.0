@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar.jsx'
 import RoleCreation from '../components/RoleCreation'
+import RoleForm from '../components/RoleForm';
 
 export default class RolepageCreate extends React.Component {
     state = {
@@ -14,8 +15,7 @@ export default class RolepageCreate extends React.Component {
                 <Header loggedIn={true}/>
                 <div style={styles.body}>
                     <NavBar admin={true} />
-                    <RoleCreation />
-                    {/* <RolesList /> */}
+                    <RoleForm />
                 </div>
             </>
         ) : (

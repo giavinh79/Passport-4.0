@@ -1,5 +1,5 @@
 export const theme = {
-  primary: '#5CDB95', // green
-  secondary: '#05386B', // blue
+  primary: '#FFFFFF', // green
+  secondary: '#51b948', // blue
   text: '#EDF5E1'
 }

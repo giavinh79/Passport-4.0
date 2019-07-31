@@ -12,6 +12,7 @@ import VerifiedIcon from '@material-ui/icons/VerifiedUser';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import { PAGES } from '../pages/Dashboard';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +34,7 @@ export default function NavBar(props) {
   }
 
   function handleChangePage(page) {
-    window.location.href = "/" + page
+    props.changePage(page)
   }
 
   return (
@@ -47,7 +48,7 @@ export default function NavBar(props) {
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
-        <ListItemText primary="Home" />
+        <ListItemText primary="Home" onClick={() => handleChangePage(PAGES.DASHBOARD)}/>
       </ListItem>
       <div style={{display : props.admin ? 'block' : 'block'}}>
         <ListItem button onClick={handleClick}>
@@ -104,7 +105,7 @@ export default function NavBar(props) {
           </List>
         </Collapse>
       </div>
-      <ListItem button onClick={() => handleChangePage("deposits")} >
+      <ListItem button onClick={() => handleChangePage(PAGES.DEPOSITS)} >
         <ListItemIcon>
           <ScannerIcon />
         </ListItemIcon>
@@ -122,7 +123,8 @@ export default function NavBar(props) {
 
 const styles = {
     wrapper: {
-        borderRight: '1px solid #ccc'
+        borderRight: '1px solid #ccc',
+        height: '100%'
     },
     wrapperItem: {
         display: 'flex',
