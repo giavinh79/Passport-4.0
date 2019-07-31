@@ -27,29 +27,27 @@ export default class Dashboard extends React.Component {
     render() {
         return this.state.user === true ? (
             <>
-                <Header loggedIn={true}/>
+                <Header loggedIn={true} />
                 <div style={styles.body}>
                     <NavBar admin={this.props.admin} changePage={this.handleChangePage} />
-                    <Grid container style={{height: '100%', overflowY: 'auto'}}>
+                    <Grid container style={{ height: '100%', overflowY: 'auto' }}>
                         <Grid item xs={12}>
-                            {this.state.currentPage === PAGES.DASHBOARD && <DashboardBody/>}
-                            {this.state.currentPage === PAGES.DEPOSITS && <DepositList/>}
-                            {this.state.currentPage === PAGES.ROLEPAGE && <RolesList/>}
-                            {this.state.currentPage === PAGES.ROLEPAGECREATE && <RoleCreation/>}
+                            {this.state.currentPage === PAGES.DASHBOARD && <DashboardBody />}
+                            {this.state.currentPage === PAGES.DEPOSITS && <DepositList />}
+                            {this.state.currentPage === PAGES.ROLEPAGE && <RolesList />}
+                            {this.state.currentPage === PAGES.ROLEPAGECREATE && <RoleCreation />}
                         </Grid>
                     </Grid>
-                        {/* 
-                         */}
                 </div>
             </>
         ) : (
-            <div></div>
-        );
+                <div></div>
+            );
     }
 }
 
 const styles = {
-    body : {
+    body: {
         display: 'flex',
         height: '89%',
         width: '100%',

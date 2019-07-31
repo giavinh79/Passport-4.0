@@ -60,7 +60,7 @@ class DepositListItem extends React.Component {
 
                 <h5 style={{ color: '#666', fontWeight: 'bold' }}>Deposit Information</h5>
 
-                <div style={{marginLeft: '25px'}}>
+                <div style={{ marginLeft: '25px' }}>
                     <FormGroup row>
                         <Label sm={3}>Declared Amount</Label>
                         <Col sm={3}>
