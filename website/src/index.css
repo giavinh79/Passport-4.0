@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#root > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div > div > input{
+  color:white
+}
+
+#root > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div > div {
+  border-bottom: 1px solid white
+}
+#root > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div > div::before{
+  border:none
+}
+#root > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div > div:hover{
+  border-bottom: 1px solid white
+}
+#root > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div > div:hover:not(.Mui-disabled):before{
+  border-bottom: 1px solid white
+
+}
+
+.SearchBar-container-2{
+  margin-top:0 !important;
+  margin-right:10px !important;
+}
+
+#root > div:nth-child(1) > div:nth-child(2){
+  margin-top:30px !important
+}
+
+#root > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(1) > svg{
+  margin-right:10px;
+  margin-top:7px
+}

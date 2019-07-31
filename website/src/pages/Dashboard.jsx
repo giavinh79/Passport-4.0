@@ -32,7 +32,7 @@ export default class Dashboard extends React.Component {
     render() {
         return this.state.user === true ? (
             <>
-                <Header loggedIn={true} />
+                <Header loggedIn={true} changePage={this.handleChangePage}/>
                 <div style={styles.body}>
                     <NavBar admin={this.props.admin} changePage={this.handleChangePage} />
                     <Grid container style={{ height: '100%', overflowY: 'auto' }}>
