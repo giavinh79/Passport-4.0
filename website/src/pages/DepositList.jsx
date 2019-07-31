@@ -62,7 +62,7 @@ class DepositList extends React.Component {
         return (
             <>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} backdrop={this.state.backdrop}>
-                    <CreateDeposit changePage={this.props.changePage}/>
+                    <CreateDeposit changePage={this.props.changePage} toggle={this.toggle}/>
                 </Modal>
 
                 <Grid container style={{ padding: '3vh 3vh 0 3vh' }}>
