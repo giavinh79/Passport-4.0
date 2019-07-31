@@ -1,15 +1,58 @@
-import React from 'react';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import React from 'react'
+import PropTypes from 'prop-types'
+import deburr from 'lodash/deburr'
 import Autosuggest from 'react-autosuggest'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
+import TextField from '@material-ui/core/TextField'
+import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
-import deburr from 'lodash/deburr'
 import { withStyles } from '@material-ui/core/styles'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import SearchIcon from '@material-ui/icons/Search';
 
-const suggestions = [];
+
+let suggestions = [
+  {label: 'Deposit List'},
+  {label: 'Deposit List Items'},
+  {label: 'Deposits'},
+  {label: 'Create New Role'},
+  {label: 'All Roles'},
+  {label: 'Create New Deposit'},
+  {label: 'Checks'},
+  {label: 'Check Scanner'},
+  {label: 'Scanner Maintenance'},
+  {label: 'Credits'},
+  {label: 'Create New Account'},
+  {label: 'Create New Customer'},
+  {label: 'Credit Cards'},
+  {label: 'Customers'}
+
+];
+
+function renderInputComponent(inputProps) {
+  const { classes, inputRef = () => {}, ref, ...other } = inputProps;
+
+  return (
+    <div>
+    <FontAwesomeIcon className={classes.textField} icon="search"/>
+    <TextField
+      className={classes.textField}
+      fullWidth
+      InputProps={{
+        inputRef: node => {
+          ref(node);
+          inputRef(node);
+        },
+        classes: {
+          input: classes.resize,
+        },
+      }}
+      {...other}
+    />
+    </div>
+  );
+}
 
 function renderSuggestion(suggestion, { query, isHighlighted }) {
   const matches = match(suggestion.label, query);
@@ -20,14 +63,14 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
       <div>
         {parts.map((part, index) => {
           return part.highlight ? (
-            <span key={String(index)} style={{ fontWeight: 500, fontSize: 13 }}>
+            <span key={String(index)} style={{ fontWeight: 500, fontSize:13 }}>
               {part.text}
             </span>
           ) : (
-              <strong key={String(index)} style={{ fontWeight: 300, fontSize: 13 }}>
-                {part.text}
-              </strong>
-            );
+            <strong key={String(index)} style={{ fontWeight: 300, fontSize:13 }}>
+              {part.text}
+            </strong>
+          );
         })}
       </div>
     </MenuItem>
@@ -42,105 +85,140 @@ function getSuggestions(value) {
   return inputLength === 0
     ? []
     : suggestions.filter(suggestion => {
-      const keep =
-        count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+        const keep =
+          count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
 
-      if (keep) {
-        count += 1;
-      }
+        if (keep) {
+          count += 1;
+        }
 
-      return keep;
-    });
+        return keep;
+      });
 }
 
 function getSuggestionValue(suggestion) {
   return suggestion.label;
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
+    height: 20,
     flexGrow: 1
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  search: {
+  container: {
     position: 'relative',
-    transition: '0.5s',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.30),
-    },
-    width: '100%',
-    marginLeft: 0,
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
+    marginTop: 30
   },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: '100%',
+  suggestionsContainerOpen: {
     position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white'
+    zIndex: 1,
+    marginTop: theme.spacing.unit,
+    left: 0,
+    right: 0,
   },
-  inputRoot: {
-    color: 'inherit',
+  suggestion: {
+    display: 'block',
   },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      '&:focus': {
-        width: 200,
-      },
-    },
+  suggestionsList: {
+    margin: 0,
+    padding: 0,
+    listStyleType: 'none',
   },
-}));
-
-const classes = useStyles;
+  divider: {
+    height: theme.spacing.unit * 2,
+  },
+  textField: {
+    width: '600px'
+  },
+  resize: {
+    fontSize:17
+  },
+});
 
 class SearchBar extends React.Component {
+  state = {
+    single: '',
+    popper: '',
+    suggestions: [],
+  };
 
-  constructor(props) {
-    super(props);
-    this.state = {
+  componentDidMount() {
+  }
+
+  handleSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value),
+    });
+  };
+
+  handleSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: [],
+    });
+  };
+
+  handleChange = name => (event, { newValue }) => {
+    this.setState({
+      [name]: newValue,
+    });
+  };
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+       this.props.changePage(3);
     }
   }
 
   render() {
+    const { classes } = this.props;
+
+    const autosuggestProps = {
+      renderInputComponent,
+      suggestions: this.state.suggestions,
+      onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
+      onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
+      getSuggestionValue,
+      renderSuggestion,
+    };
+
     return (
-      <div style={{ margin: 'auto', flex: '3', display: 'flex', height: '70%', transition: '0.5s', borderBottom: '1pt solid white' }}>
-        <div className={classes.search} style={{ width: this.props.expanded ? '100%' : '50px', overflow: 'hidden', display: 'flex' }}>
+      <div className={classes.root} style={{ display: 'flex', justifyContent:'left'}}>
+        <div style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
           <div className={classes.searchIcon}>
-            <SearchIcon />
+            <SearchIcon color="white" style={{color:'white'}}/>
           </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-          />
+          <div style={{color:'white'}}>
+            <Autosuggest
+              {...autosuggestProps}
+              inputProps={{
+                  classes,
+                  placeholder: 'Search...',
+                  value: this.state.single,
+                  onChange: this.handleChange('single'),
+                  onKeyDown: this.handleKeyPress,
+              }}
+              theme={{
+                  container: classes.container,
+                  suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                  suggestionsList: classes.suggestionsList,
+                  suggestion: classes.suggestion,
+              }}
+              renderSuggestionsContainer={options => (
+                  <Paper {...options.containerProps} square>
+                  {options.children}
+                  </Paper>
+              )}
+              />
+            </div>
         </div>
+        <div className={classes.divider} />
       </div>
     );
   }
 }
 
-export default withStyles(useStyles)(SearchBar);
+SearchBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SearchBar);
