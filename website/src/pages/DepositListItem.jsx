@@ -1,15 +1,15 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core'
-import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Button, FormGroup, Label, Input, FormText, Col, Row, InputGroup, InputGroupAddon } from 'reactstrap';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
 
-var socket = require('socket.io-client')('https://passport-redesign-248321.appspot.com');
+let url = 'https://passport-redesign-248321.appspot.com'
+var socket = require('socket.io-client');
 var QRCODE = require('qrcode.react');
 
 const useStyles = makeStyles(theme => ({
@@ -29,9 +29,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const rows = [
-    ['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153']
-];
+const rowTemplate = ['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'];
+// const rows = [
+//     {row:['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'], data:{}}
+// ];
 
 const headers = [
     "Tasks", "Create Date", "Deposit Number", "Type", "Location", "Capture", "Account", "Assigned Used ID", "Amount ($)", "Number of Items", "State", "Deposit ID"
@@ -39,29 +40,32 @@ const headers = [
 
 class DepositListItem extends React.Component {
 
-    state = {
-        qrcode: false
-    }
-
-    handleModal = () => {
-        window.location.href = "/create-deposit"
-        // this.setState({ qrcode: true, socketId: socket.id })
-        // socket.on('image', (data) => {
-        //     this.setState({
-        //         imageReady: true,
-        //         imageData: data,
-        //         showModal: true
-        //     })
-        // });
+    constructor(props){
+        super(props)
+        this.handleClickOpen()
+        this.state = {
+            rows:[]
+        }
     }
 
     handleClickOpen = () => {
         this.setState({open: true})
-    }
-
-
-    handleClose = () => {
-        this.setState({open: false})
+        let currSocket = socket(url)
+        currSocket.on('connect', () => {
+            console.log(currSocket, currSocket.id);
+            this.setState({ qrcode: true, socketId: currSocket.id })
+        });
+        currSocket.on('image', (data) => {
+            const obj = {rowTemplate, data}
+            this.state.rows.push(obj)
+            this.setState({
+                imageReady: true,
+                open: false,
+                rows: this.state.rows,
+                qrcode: false,
+                socketId: undefined
+            })
+        });
     }
 
     render() {
@@ -118,9 +122,9 @@ class DepositListItem extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map(row => (
-                                <TableRow key={row[0]}>
-                                    {row.map(cell => (
+                            {this.state.rows.map((obj, index)=> (
+                                <TableRow onClick={()=>this.setState({showCheque: true, imageData:obj.data})} key={index}>
+                                    {obj.row.map(cell => (
                                         <TableCell key={cell} align="center">{cell}</TableCell>
                                     ))}
                                 </TableRow>
@@ -129,35 +133,59 @@ class DepositListItem extends React.Component {
                     </Table>
 
                 </Paper>
-                <Button
-                style={{marginTop:'10px'}}
-                onClick={this.handleClickOpen}
-                >Create Item</Button>
+
                 <Dialog
-                    open={this.state.open}
+                    open={this.state.showCheque}
                     keepMounted
-                    onClose={this.handleClose}
+                    onClose={()=>this.setState({showCheque: false})}
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-slide-title">{"This is your check"}</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
-                        Let Google help apps determine location. This means sending anonymous location data to
-                        Google, even when no apps are running.
+                        This is your check
+                        {this.state.imageReady ? <img style={{width:' 500px', transform: 'rotate(90deg)'}} src={`data:image/jpeg;base64,${this.state.imageData}`} /> : null}
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
-                        Disagree
+                    <Button onClick={()=>this.setState({showCheque: false})} color="primary">
+                        Dismiss
                     </Button>
-                    <Button onClick={this.handleClose} color="primary">
-                        Agree
+                    </DialogActions>
+                </Dialog>   
+
+                <Dialog
+                    open={this.state.open}
+                    keepMounted
+                    onClose={()=>this.setState({open: false})}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Scanner is not connected"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        There is no scanner detected, use your phone to scan QR code.
+                            {this.state.qrcode && this.state.socketId ? <QRCODE value={this.state.socketId} /> : null}
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={()=>this.setState({open: false})} color="primary">
+                        Dismiss
+                    </Button>
+                    <Button onClick={()=>this.setState({open: false})} color="primary">
+                        Try Again
                     </Button>
                     </DialogActions>
                 </Dialog>
-                {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
-                {this.state.imageReady ? <img src={`data:image/jpeg;base64,${this.state.imageData}`} /> : null}
+
+                <div style={{paddingTop: '10px'}}>
+                    <Button onClick={this.handleClickOpen}>Create New Item</Button>
+                </div>
+                
+
+                {/* {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
+                {this.state.imageReady ? <img src={`data:image/jpeg;base64,${this.state.imageData}`} /> : null} */}
             </div>
         );
     }

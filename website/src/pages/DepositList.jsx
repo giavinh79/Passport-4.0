@@ -11,9 +11,6 @@ import CreateDeposit from './CreateDeposit';
 import { Grid } from '@material-ui/core';
 import { Modal } from 'reactstrap';
 
-var socket = require('socket.io-client')('http://localhost:5000');
-var QRCODE = require('qrcode.react');
-
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
@@ -48,7 +45,7 @@ class DepositList extends React.Component {
             modal: false,
             qrcode: false,
             backdrop: true
-        };
+        }
 
         this.toggle = this.toggle.bind(this);
     }
@@ -59,22 +56,13 @@ class DepositList extends React.Component {
         }));
     }
 
-        // this.setState({ qrcode: true, socketId: socket.id })
-        // socket.on('image', (data) => {
-        //     console.log(data);
-        //     this.setState({
-        //         imageReady: true,
-        //         imageData: data
-        //     })
-        // });
-
     render() {
         const { classes } = this.props
 
         return (
             <>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} backdrop={this.state.backdrop}>
-                    <CreateDeposit changePage={this.props.changePage}/>
+                    <CreateDeposit changePage={this.props.changePage} toggle={this.toggle}/>
                 </Modal>
 
                 <Grid container style={{ padding: '3vh 3vh 0 3vh' }}>
@@ -122,10 +110,6 @@ class DepositList extends React.Component {
                                 </TableBody>
                             </Table>
                         </Paper>
-                    </Grid>
-                    <Grid item>
-                        {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
-                        {this.state.imageReady ? <img src={this.state.imageData} /> : null}
                     </Grid>
                 </Grid>
             </>

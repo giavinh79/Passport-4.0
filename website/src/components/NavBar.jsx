@@ -48,19 +48,19 @@ export default function NavBar(props) {
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
-        <ListItemText primary="Home" onClick={() => handleChangePage(PAGES.DASHBOARD)}/>
+        <ListItemText primary="Home" onClick={() => handleChangePage(PAGES.DASHBOARD)} />
       </ListItem>
-      <div style={{display : props.admin ? 'block' : 'block'}}>
+      <div style={{ display: props.admin ? 'block' : 'block' }}>
         <ListItem button onClick={handleClick}>
           <ListItemIcon>
             <VerifiedIcon />
           </ListItemIcon>
           <ListItemText primary="Administration" />
-          {open? <ExpandLess /> : <ExpandMore />}
+          {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested} onClick={() => handleChangePage(PAGES.CUSTOMER)}>
               <ListItemIcon>
                 <StarBorder />
               </ListItemIcon>
@@ -122,12 +122,12 @@ export default function NavBar(props) {
 }
 
 const styles = {
-    wrapper: {
-        borderRight: '1px solid #ccc',
-        height: '100%'
-    },
-    wrapperItem: {
-        display: 'flex',
-        alignItems: 'center'
-    }
+  wrapper: {
+    borderRight: '1px solid #ccc',
+    height: '100%'
+  },
+  wrapperItem: {
+    display: 'flex',
+    alignItems: 'center'
+  }
 }
