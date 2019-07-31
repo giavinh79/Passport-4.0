@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Grid } from '@material-ui/core'
 import { Button, FormGroup, Label, Input, FormText, Col, Row, InputGroup, InputGroupAddon } from 'reactstrap';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -40,28 +40,29 @@ const headers = [
 
 class DepositListItem extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.handleClickOpen()
         this.state = {
-            rows:[]
+            rows: []
         }
     }
 
     handleClickOpen = () => {
-        this.setState({open: true})
+        this.setState({ open: true })
         let currSocket = socket(url)
         currSocket.on('connect', () => {
             console.log(currSocket, currSocket.id);
             this.setState({ qrcode: true, socketId: currSocket.id })
         });
         currSocket.on('image', (data) => {
-            const obj = {rowTemplate, data}
-            this.state.rows.push(obj)
+            const obj = { row: rowTemplate, data }
+            let rows = this.state.rows
+            rows.push(obj)
             this.setState({
                 imageReady: true,
                 open: false,
-                rows: this.state.rows,
+                rows: rows,
                 qrcode: false,
                 socketId: undefined
             })
@@ -122,8 +123,8 @@ class DepositListItem extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.rows.map((obj, index)=> (
-                                <TableRow onClick={()=>this.setState({showCheque: true, imageData:obj.data})} key={index}>
+                            {this.state.rows.map((obj, index) => (
+                                <TableRow onClick={() => this.setState({ showCheque: true, imageData: obj.data })} key={index}>
                                     {obj.row.map(cell => (
                                         <TableCell key={cell} align="center">{cell}</TableCell>
                                     ))}
@@ -137,52 +138,60 @@ class DepositListItem extends React.Component {
                 <Dialog
                     open={this.state.showCheque}
                     keepMounted
-                    onClose={()=>this.setState({showCheque: false})}
+                    onClose={() => this.setState({ showCheque: false })}
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
                     <DialogTitle id="alert-dialog-slide-title">{"This is your check"}</DialogTitle>
-                    <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        This is your check
-                        {this.state.imageReady ? <img style={{width:' 500px', transform: 'rotate(90deg)'}} src={`data:image/jpeg;base64,${this.state.imageData}`} /> : null}
-                    </DialogContentText>
+                    <DialogContent style={{maxHeight: '800px'}}
+>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            <Grid container justify="center" style={{ padding: '2rem 0' }}>
+                                <Grid item>
+                                    {this.state.imageReady ? <img style={{ width: '500px', transform: 'rotate(90deg)' }} src={`data:image/jpeg;base64,${this.state.imageData}`} /> : null}
+                                </Grid>
+                            </Grid>
+                        </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={()=>this.setState({showCheque: false})} color="primary">
-                        Dismiss
+                        <Button onClick={() => this.setState({ showCheque: false })} color="primary">
+                            Dismiss
                     </Button>
                     </DialogActions>
-                </Dialog>   
+                </Dialog>
 
                 <Dialog
                     open={this.state.open}
                     keepMounted
-                    onClose={()=>this.setState({open: false})}
+                    onClose={() => this.setState({ open: false })}
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
                     <DialogTitle id="alert-dialog-slide-title">{"Scanner is not connected"}</DialogTitle>
                     <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        There is no scanner detected, use your phone to scan QR code.
-                            {this.state.qrcode && this.state.socketId ? <QRCODE value={this.state.socketId} /> : null}
-                    </DialogContentText>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            There is no scanner detected, use your phone to scan QR code.
+                        <Grid container justify="center" style={{ padding: '2rem 0' }}>
+                                <Grid item>
+                                    {this.state.qrcode && this.state.socketId ? <QRCODE value={this.state.socketId} /> : null}
+                                </Grid>
+                            </Grid>
+                        </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={()=>this.setState({open: false})} color="primary">
-                        Dismiss
+                        <Button onClick={() => this.setState({ open: false })} color="primary">
+                            Dismiss
                     </Button>
-                    <Button onClick={()=>this.setState({open: false})} color="primary">
-                        Try Again
+                        <Button onClick={() => this.setState({ open: false })} color="primary">
+                            Try Again
                     </Button>
                     </DialogActions>
                 </Dialog>
 
-                <div style={{paddingTop: '10px'}}>
+                <div style={{ paddingTop: '10px' }}>
                     <Button onClick={this.handleClickOpen}>Create New Item</Button>
                 </div>
-                
+
 
                 {/* {this.state.qrcode ? <QRCODE value={this.state.socketId} /> : null}
                 {this.state.imageReady ? <img src={`data:image/jpeg;base64,${this.state.imageData}`} /> : null} */}
