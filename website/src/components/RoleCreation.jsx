@@ -4,15 +4,15 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const availablePermissions = [
     {
         id: 'item 1',
-        content: 'Customer Operator',
+        content: 'Access Cloud Scanners',
     },
     {
         id: 'item 2',
-        content: 'item 2',
+        content: 'Approve Deposit',
     },
     {
         id: 'item 3',
-        content: 'item 3',
+        content: 'Reviewer',
     }
 ];
 
@@ -67,7 +67,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
+    display: 'flex',
     userSelect: 'none',
     padding: grid * 2,
     margin: `0 0 ${grid}px 0`,
@@ -160,6 +160,7 @@ export default class RoleCreation extends Component {
                                     draggableId={item.id}
                                     index={index}>
                                     {(provided, snapshot) => (
+                                        // <div style={{display: 'flex'}}>
                                         <div
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
@@ -169,8 +170,10 @@ export default class RoleCreation extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {item.content}
-                                            {/* <i className="fas fa-plus-circle" style={{color: 'green'}}></i> */}
+                                            <i className="fas fa-plus-circle" style={{color: 'green', fontSize: '1.4rem', marginLeft: 'auto'}}></i>
                                         </div>
+                                        // <i className="fas fa-plus-circle" style={{color: 'green'}}></i>
+                                        // </div>
                                     )}
                                 </Draggable>
                             ))}
@@ -199,6 +202,7 @@ export default class RoleCreation extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {item.content}
+                                            <i class="fas fa-minus-circle" style={{color: 'red', fontSize: '1.4rem', marginLeft: 'auto'}}></i>
                                         </div>
                                     )}
                                 </Draggable>

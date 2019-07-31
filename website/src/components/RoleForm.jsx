@@ -13,13 +13,13 @@ export default class RoleForm extends React.Component {
       <Form style={{display: 'flex', flexDirection: 'column', margin: '2rem', border: '1px solid #ccc', width: '40%'}} onSubmit={this.createRole}>
         <h2 style={{marginBottom: '1rem', padding: '2rem 2rem 0 2rem'}}>Create a Role</h2>
         <FormGroup row style={{padding: '0 2rem'}}>
-          <Label for="exampleEmail" sm={4}>Role Description</Label>
+          <Label for="exampleEmail" sm={4}>Role Description:</Label>
           <Col sm={8}>
             <Input type="input" name="email" id="exampleEmail" required/>
           </Col>
         </FormGroup>
         <FormGroup row style={{padding: '0 2rem'}}>
-            <Label for="exampleSelectMulti" sm={4}>Assign to Group</Label>
+            <Label for="exampleSelectMulti" sm={4}>To Be Assigned To:</Label>
             <Col sm={8}>
                 <Input type="select" name="select" id="exampleSelect">
                     <option>Customer</option>
@@ -33,7 +33,8 @@ export default class RoleForm extends React.Component {
                 <RoleCreation />
             </div>
             <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: 'auto'}}>
-                <Button>Save</Button>
+                <Button style={{marginTop: '2rem'}}>Save</Button>
+                <Button style={{margin: '2rem 0 0 1rem'}}>Cancel</Button>
             </div>
         </FormGroup>
       </Form>

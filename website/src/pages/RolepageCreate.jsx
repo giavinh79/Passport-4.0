@@ -27,7 +27,7 @@ export default class RolepageCreate extends React.Component {
 const styles = {
     body : {
         display: 'flex',
-        height: '89%',
+        minHeight: '89%',
         width: '100%',
         flex: 'auto'
     }
