@@ -1,13 +1,12 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core'
-import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Button, FormGroup, Label, Input, FormText, Col, Row, InputGroup, InputGroupAddon } from 'reactstrap';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
 
 let url = 'https://passport-redesign-248321.appspot.com'
 var socket = require('socket.io-client');
@@ -30,9 +29,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const rows = [
-    {row:['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'], data:{}}
-];
+const rowTemplate = ['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'];
+// const rows = [
+//     {row:['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'], data:{}}
+// ];
 
 const headers = [
     "Tasks", "Create Date", "Deposit Number", "Type", "Location", "Capture", "Account", "Assigned Used ID", "Amount ($)", "Number of Items", "State", "Deposit ID"
@@ -40,36 +40,32 @@ const headers = [
 
 class DepositListItem extends React.Component {
 
-    state = {
-        qrcode: false
+    constructor(props){
+        super(props)
+        this.handleClickOpen()
+        this.state = {
+            rows:[]
+        }
     }
 
-    handleModal = () => {
+    handleClickOpen = () => {
+        this.setState({open: true})
         let currSocket = socket(url)
         currSocket.on('connect', () => {
             console.log(currSocket, currSocket.id);
             this.setState({ qrcode: true, socketId: currSocket.id })
         });
         currSocket.on('image', (data) => {
-            const row =  ['Frozen yoghurt', '07/10/19 09:55 AM', '000060', 'ACH-ARC', '190 King St, Kitchener, Ontario', 'Check Scanner', '1948****** - Weber Market bank account King St', 'wm_op1', '50.00', '4', 'Open-Incomplete', '3200000000153'];
-            const obj = {row, data}
-            rows.push(obj)
+            const obj = {rowTemplate, data}
+            this.state.rows.push(obj)
             this.setState({
                 imageReady: true,
                 open: false,
-                rows: rows
+                rows: this.state.rows,
+                qrcode: false,
+                socketId: undefined
             })
         });
-    }
-
-    componentWillMount () {
-        this.handleClickOpen();
-        this.setState({rows: rows})
-    }
-
-    handleClickOpen = () => {
-        this.setState({open: true})
-        this.handleModal();
     }
 
     render() {
