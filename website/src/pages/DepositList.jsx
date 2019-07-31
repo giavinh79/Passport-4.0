@@ -82,7 +82,7 @@ class DepositList extends React.Component {
                                             style={{ borderColor: 'green', color: 'green', margin: '1rem 0rem 1rem 0' }}
                                         >
                                             Create new deposit
-                                    </Button>
+                                        </Button>
                                     </Grid>
                                 </Grid>
 

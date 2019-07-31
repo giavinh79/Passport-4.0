@@ -8,6 +8,8 @@ import RolesList from '../components/RolesList';
 import RoleCreation from '../components/RoleCreation';
 import DepositListItem from './DepositListItem';
 import { CustomerBody } from '../components/CustomerBody';
+import RolepageCreate from './RolepageCreate';
+
 export const PAGES = {
     DEPOSITS: 0,
     DASHBOARD: 1,
@@ -37,10 +39,10 @@ export default class Dashboard extends React.Component {
                         <Grid item xs={12}>
                             {this.state.currentPage === PAGES.DASHBOARD && <DashboardBody />}
                             {this.state.currentPage === PAGES.DEPOSITS && <DepositList changePage={this.handleChangePage} />}
-                            {this.state.currentPage === PAGES.ROLEPAGE && <RolesList />}
-                            {this.state.currentPage === PAGES.ROLEPAGECREATE && <RoleCreation />}
                             {this.state.currentPage === PAGES.DEPOSITLISTITEM && <DepositListItem />}
                             {this.state.currentPage === PAGES.CUSTOMER && <CustomerBody />}
+                            {this.state.currentPage === PAGES.ROLEPAGE && <RolesList change={this.handleChangePage}/>}
+                            {this.state.currentPage === PAGES.ROLEPAGECREATE && <RolepageCreate change={this.handleChangePage}/>}
                         </Grid>
                     </Grid>
                 </div>
@@ -54,7 +56,7 @@ export default class Dashboard extends React.Component {
 const styles = {
     body: {
         display: 'flex',
-        height: '89%',
+        minHeight: '89%',
         width: '100%',
         flex: 'auto'
     }

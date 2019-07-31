@@ -4,15 +4,15 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const availablePermissions = [
     {
         id: 'item 1',
-        content: 'Customer Operator',
+        content: 'Access Cloud Scanners',
     },
     {
         id: 'item 2',
-        content: 'item 2',
+        content: 'Approve Deposit',
     },
     {
         id: 'item 3',
-        content: 'item 3',
+        content: 'Reviewer',
     }
 ];
 
@@ -67,7 +67,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
+    display: 'flex',
     userSelect: 'none',
     padding: grid * 2,
     margin: `0 0 ${grid}px 0`,
@@ -81,7 +81,9 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'rgb(160, 174, 185)',
+    // rgb(160, 174, 185)
+    // #51B948
+    background: isDraggingOver ? 'lightblue' : 'rgb(77, 140, 76)',
     padding: grid,
     margin: '0 1rem',
     width: '50%',
@@ -153,13 +155,14 @@ export default class RoleCreation extends Component {
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
-                            <h5 style={{margin:'1rem'}}>Available Permissions</h5>
+                            <h5 style={{margin:'1rem', color: 'white'}}>Available Permissions</h5>
                             {this.state.items.map((item, index) => (
                                 <Draggable
                                     key={item.id}
                                     draggableId={item.id}
                                     index={index}>
                                     {(provided, snapshot) => (
+                                        // <div style={{display: 'flex'}}>
                                         <div
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
@@ -169,8 +172,10 @@ export default class RoleCreation extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {item.content}
-                                            {/* <i className="fas fa-plus-circle" style={{color: 'green'}}></i> */}
+                                            <i className="fas fa-plus-circle" style={{color: '#51B948', fontSize: '1.4rem', marginLeft: 'auto'}}></i>
                                         </div>
+                                        // <i className="fas fa-plus-circle" style={{color: 'green'}}></i>
+                                        // </div>
                                     )}
                                 </Draggable>
                             ))}
@@ -183,7 +188,7 @@ export default class RoleCreation extends Component {
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
-                            <h5 style={{margin:'1rem'}}>Selected Permissions</h5>
+                            <h5 style={{margin:'1rem', color: 'white'}}>Selected Permissions</h5>
                             {this.state.selected.map((item, index) => (
                                 <Draggable
                                     key={item.id}
@@ -199,6 +204,7 @@ export default class RoleCreation extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {item.content}
+                                            <i class="fas fa-minus-circle" style={{color: 'red', fontSize: '1.4rem', marginLeft: 'auto'}}></i>
                                         </div>
                                     )}
                                 </Draggable>

@@ -11,13 +11,7 @@ export default class RolepageCreate extends React.Component {
 
     render() {
         return this.state.user === true ? (
-            <>
-                <Header loggedIn={true}/>
-                <div style={styles.body}>
-                    <NavBar admin={true} />
-                    <RoleForm />
-                </div>
-            </>
+            <RoleForm change={this.props.change}/>
         ) : (
             <div></div>
         );
@@ -27,7 +21,7 @@ export default class RolepageCreate extends React.Component {
 const styles = {
     body : {
         display: 'flex',
-        height: '89%',
+        minHeight: '89%',
         width: '100%',
         flex: 'auto'
     }

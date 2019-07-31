@@ -88,7 +88,7 @@ export default function NavBar(props) {
               <ListItemIcon>
                 <StarBorder />
               </ListItemIcon>
-              <ListItemText primary="Roles" />
+              <ListItemText primary="Roles" onClick={() => handleChangePage(PAGES.ROLEPAGE)}/>
             </ListItem>
             <ListItem button className={classes.nested}>
               <ListItemIcon>
