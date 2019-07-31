@@ -1,13 +1,14 @@
-const app = require('express')();
+const express = require('express');
+const app = express(); 
 const bodyParser = require('body-parser');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const path = require('path');
 
 let globalSockets = {};
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
-    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Origin', '*');
     next()
 });
 
@@ -35,6 +36,11 @@ app.post('/scan', (req, res) => {
     }
 
 })
+
+app.use(express.static(path.join(__dirname, 'build_client')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build_client', 'index.html'));
+});
 
 const port = process.env.PORT || 5000;
 http.listen(port, () => {
