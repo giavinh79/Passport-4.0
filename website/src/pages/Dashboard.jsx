@@ -7,13 +7,14 @@ import DashboardBody from '../components/DashboardBody'
 import RolesList from '../components/RolesList';
 import RoleCreation from '../components/RoleCreation';
 import DepositListItem from './DepositListItem';
-
+import { CustomerBody } from '../components/CustomerBody';
 export const PAGES = {
     DEPOSITS: 0,
     DASHBOARD: 1,
     ROLEPAGE: 2,
     ROLEPAGECREATE: 3,
-    DEPOSITLISTITEM: 4
+    DEPOSITLISTITEM: 4,
+    CUSTOMER: 5
 }
 export default class Dashboard extends React.Component {
     state = {
@@ -39,6 +40,7 @@ export default class Dashboard extends React.Component {
                             {this.state.currentPage === PAGES.ROLEPAGE && <RolesList />}
                             {this.state.currentPage === PAGES.ROLEPAGECREATE && <RoleCreation />}
                             {this.state.currentPage === PAGES.DEPOSITLISTITEM && <DepositListItem />}
+                            {this.state.currentPage === PAGES.CUSTOMER && <CustomerBody />}
                         </Grid>
                     </Grid>
                 </div>
