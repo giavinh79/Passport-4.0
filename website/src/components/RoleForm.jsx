@@ -10,8 +10,8 @@ export default class RoleForm extends React.Component {
 
   render() {
     return (
-      <Form style={{display: 'flex', flexDirection: 'column', margin: '2rem', border: '1px solid #ccc', width: '40%'}} onSubmit={this.createRole}>
-        <h2 style={{marginBottom: '1rem', padding: '2rem 2rem 0 2rem'}}>Create a Role</h2>
+      <Form style={{display: 'flex', flexDirection: 'column', margin: '2rem', border: '1px solid #ccc'}} onSubmit={this.createRole}>
+        <h2 style={{marginBottom: '1rem', padding: '2rem 2rem 0 2rem'}}>New Role</h2>
         <FormGroup row style={{padding: '0 2rem'}}>
           <Label for="exampleEmail" sm={4}>Role Description:</Label>
           <Col sm={8}>
@@ -22,9 +22,8 @@ export default class RoleForm extends React.Component {
             <Label for="exampleSelectMulti" sm={4}>To Be Assigned To:</Label>
             <Col sm={8}>
                 <Input type="select" name="select" id="exampleSelect">
-                    <option>Customer</option>
-                    <option>Bank</option>
-                    <option>Host</option>
+                    <option>Bank User</option>
+                    <option>Customer User</option>
                 </Input>
           </Col>
         </FormGroup>
@@ -33,8 +32,8 @@ export default class RoleForm extends React.Component {
                 <RoleCreation />
             </div>
             <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: 'auto'}}>
-                <Button style={{marginTop: '2rem'}}>Save</Button>
-                <Button style={{margin: '2rem 0 0 1rem'}}>Cancel</Button>
+                <Button style={{marginTop: '2rem', backgroundColor: '#51B948', border: 'none'}}>Save</Button>
+                <Button style={{margin: '2rem 0 0 1rem', backgroundColor: 'white', border: '1px solid green', color: 'green'}}>Cancel</Button>
             </div>
         </FormGroup>
       </Form>

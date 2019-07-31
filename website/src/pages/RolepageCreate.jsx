@@ -11,13 +11,7 @@ export default class RolepageCreate extends React.Component {
 
     render() {
         return this.state.user === true ? (
-            <>
-                <Header loggedIn={true}/>
-                <div style={styles.body}>
-                    <NavBar admin={true} />
-                    <RoleForm />
-                </div>
-            </>
+            <RoleForm />
         ) : (
             <div></div>
         );

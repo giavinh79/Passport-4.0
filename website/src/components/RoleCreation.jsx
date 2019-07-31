@@ -81,6 +81,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 const getListStyle = isDraggingOver => ({
+    // rgb(160, 174, 185)
+    // #51B948
     background: isDraggingOver ? 'lightblue' : 'rgb(160, 174, 185)',
     padding: grid,
     margin: '0 1rem',
@@ -153,7 +155,7 @@ export default class RoleCreation extends Component {
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
-                            <h5 style={{margin:'1rem'}}>Available Permissions</h5>
+                            <h5 style={{margin:'1rem', color: 'white'}}>Available Permissions</h5>
                             {this.state.items.map((item, index) => (
                                 <Draggable
                                     key={item.id}
@@ -170,7 +172,7 @@ export default class RoleCreation extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {item.content}
-                                            <i className="fas fa-plus-circle" style={{color: 'green', fontSize: '1.4rem', marginLeft: 'auto'}}></i>
+                                            <i className="fas fa-plus-circle" style={{color: '#51B948', fontSize: '1.4rem', marginLeft: 'auto'}}></i>
                                         </div>
                                         // <i className="fas fa-plus-circle" style={{color: 'green'}}></i>
                                         // </div>
@@ -186,7 +188,7 @@ export default class RoleCreation extends Component {
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
-                            <h5 style={{margin:'1rem'}}>Selected Permissions</h5>
+                            <h5 style={{margin:'1rem', color: 'white'}}>Selected Permissions</h5>
                             {this.state.selected.map((item, index) => (
                                 <Draggable
                                     key={item.id}
